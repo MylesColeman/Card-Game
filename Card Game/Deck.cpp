@@ -17,7 +17,6 @@ void Deck::Build()
 	}
 }
 
-// Outputs the deck
 void Deck::Display()
 {
 	for (auto& card : m_deckCards)
@@ -26,7 +25,6 @@ void Deck::Display()
 	}
 }
 
-// Shuffles the deck
 void Deck::Shuffle()
 {
 	for (int i = 0; i < 100; i++)
