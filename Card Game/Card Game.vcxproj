@@ -129,11 +129,13 @@
   <ItemGroup>
     <ClCompile Include="Card Game.cpp" />
     <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="PlayingCard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deck.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Hand.h" />
     <ClInclude Include="PlayingCard.h" />
   </ItemGroup>
