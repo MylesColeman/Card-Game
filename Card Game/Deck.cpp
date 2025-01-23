@@ -17,14 +17,6 @@ void Deck::Build()
 	}
 }
 
-void Deck::Display()
-{
-	for (auto& card : m_deckCards)
-	{
-		std::cout << "Suit: " << card.GetSuit() << " " << "Face Value: " << card.GetFaceValue() << std::endl;
-	}
-}
-
 void Deck::Shuffle()
 {
 	for (int i = 0; i < 100; i++)

@@ -22,11 +22,3 @@ int Hand::Value()
 
 	return totalValue;
 }
-
-void Hand::Display()
-{
-	for (auto& card : m_cards)
-	{
-		std::cout << "Suit: " << card.GetSuit() << " " << "Face Value: " << card.GetFaceValue() << std::endl;
-	}
-}

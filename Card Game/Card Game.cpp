@@ -7,13 +7,15 @@
 using namespace std;
 int main()
 {
+    srand(time(NULL));
+
     Deck newDeck; // Creates the deck
     newDeck.Build(); 
-    newDeck.Display();
+    cout << newDeck << endl;
 
     newDeck.Shuffle(); // Shuffles the deck
     cout << "Deck Shuffled" << endl;
-    newDeck.Display(); 
+    cout << newDeck << endl;
 
     Hand newHand; // Creates the hand
     for (int i = 0; i < 5; i++)
@@ -22,7 +24,6 @@ int main()
         newHand.Add(dealtCard);
     }
     cout << "Dealt Cards:" << endl;
-    newHand.Display();
-    cout << "Total Hand Value: " << newHand.Value() << endl; 
 
+    cout << "Total Hand Value: " << newHand.Value() << endl; 
 }
