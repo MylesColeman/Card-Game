@@ -18,6 +18,23 @@ int Hand::Value()
 	for (auto& card : m_cards)
 	{
 		totalValue += card.GetFaceValue();
+
+		if (card.GetSuit() == 1)
+		{
+			totalValue += card.GetFaceValue() * 2;
+		}
+		else if (card.GetSuit() == 2)
+		{
+			totalValue += card.GetFaceValue() / 2;
+		}
+		else if (card.GetSuit() == 2)
+		{
+			totalValue += card.GetFaceValue() + 5;
+		}
+		else
+		{
+			totalValue += card.GetFaceValue();
+		}
 	}
 
 	return totalValue;
