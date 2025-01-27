@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include <vector>
 
 void Game::Play()
 {
@@ -33,9 +34,10 @@ void Game::Play()
     }
     
     // Creates the specified number of players
-    int highestPlayerValue{};
+    int highestPlayerValue = 0;
     int winningPlayer = 1;
     bool drawCheck = false;
+    std::vector<int> drawnPlayers;
     for (int player = 1; player < numHands + 1; player++)
     {
         Hand newHand; 
@@ -55,10 +57,14 @@ void Game::Play()
         {
             highestPlayerValue = newHand.Value();
             winningPlayer = player;
+            drawCheck = false;
+            drawnPlayers.clear();
+            drawnPlayers.push_back(player);
         }
         else if (highestPlayerValue == newHand.Value())
         {
             drawCheck = true;
+            drawnPlayers.push_back(player);
         }
     }
     if (!drawCheck)
@@ -67,7 +73,10 @@ void Game::Play()
     }
     else
     {
-        std::cout << "Game Void! There was a draw! " << std::endl;
+        std::cout << "There was a draw! Heres Who Drawn:" << std::endl;
+        for (auto& player : drawnPlayers)
+        {
+            std::cout << player << std::endl;
+        }
     }
-    
 }
