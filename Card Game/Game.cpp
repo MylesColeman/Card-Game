@@ -33,11 +33,14 @@ void Game::Play()
     }
     
     // Creates the specified number of players
+    int highestPlayerValue{};
+    int winningPlayer = 1;
+    bool drawCheck = false;
     for (int player = 1; player < numHands + 1; player++)
     {
         Hand newHand; 
         m_hands.push_back(newHand);
-        for (int i = 0; i < 5; i++)
+        for (int numCards = 0; numCards < 5; numCards++)
         {
             PlayingCard dealtCard = m_deck.Deal();
             newHand.Add(dealtCard);
@@ -46,15 +49,25 @@ void Game::Play()
         std::cout << "Player " << player << "s " << "Dealt Cards:" << std::endl;
         std::cout << newHand << std::endl;
         std::cout << "Total Hand Value: " << newHand.Value() << std::endl;
-    }
 
-    // Checks for a winner (or draw)
-    int highestPlayerValue = m_hands[0].Value();
-    std::cout << m_hands[0] << std::endl;
-    int winningPlayer = 1;
-    for (int player = 1; player < numHands; player++)
-    {
-       
+        // Checks for a winner (or draw)
+        if (highestPlayerValue < newHand.Value())
+        {
+            highestPlayerValue = newHand.Value();
+            winningPlayer = player;
+        }
+        else if (highestPlayerValue == newHand.Value())
+        {
+            drawCheck = true;
+        }
     }
-    std::cout << "Player " << winningPlayer << " Wins!" << std::endl;
+    if (!drawCheck)
+    {
+        std::cout << "Player " << winningPlayer << " Wins!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Game Void! There was a draw! " << std::endl;
+    }
+    
 }
