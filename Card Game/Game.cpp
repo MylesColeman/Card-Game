@@ -19,13 +19,13 @@ void Game::Play()
     int numHands = 1;
     while (numPlayersError)
     {
-        std::cout << "How many people are playing? 2 - 5" << std::endl;
+        std::cout << "How many people are playing? 2 - 8" << std::endl;
         std::cin >> numHands;
 
-        if (numHands < 2 || numHands > 5)
+        if (numHands < 2 || numHands > 8)
         {
             numPlayersError = true;
-            std::cout << "ERROR - Player count must be between 2 and 5!" << std::endl;
+            std::cout << "ERROR - Player count must be between 2 and 8!" << std::endl;
         }
         else
         {
@@ -42,7 +42,7 @@ void Game::Play()
     {
         Hand newHand; 
         m_hands.push_back(newHand);
-        for (int numCards = 0; numCards < 5; numCards++)
+        for (int numCards = 0; numCards < 2; numCards++)
         {
             PlayingCard dealtCard = m_deck.Deal();
             newHand.Add(dealtCard);
