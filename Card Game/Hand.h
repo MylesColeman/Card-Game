@@ -3,6 +3,12 @@
 #include <ostream>
 #include "PlayingCard.h"
 
+struct HandValue
+{
+	int minValue;
+	int maxValue;
+};
+
 class Hand
 {
 private:
@@ -11,7 +17,7 @@ private:
 	friend inline std::ostream& operator<<(std::ostream& os, const Hand& deck);
 public:
 	void Add(PlayingCard card); // Adds a dealt card to the hand
-	int Value(); // Takes the sum of all cards in the hand and returns it
+	HandValue Value(); // Takes the sum of all cards in the hand and returns it
 };
 
 inline std::ostream& operator<<(std::ostream& os, const Hand& hand)
