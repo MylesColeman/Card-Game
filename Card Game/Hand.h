@@ -18,6 +18,7 @@ private:
 public:
 	void Add(PlayingCard card); // Adds a dealt card to the hand
 	HandValue Value(); // Takes the sum of all cards in the hand and returns it
+	int GetCardCount() const { return m_cards.size(); }
 };
 
 inline std::ostream& operator<<(std::ostream& os, const Hand& hand)

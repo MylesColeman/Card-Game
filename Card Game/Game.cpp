@@ -12,8 +12,8 @@ void Game::Play()
 
     // Shuffles the deck
     m_deck.Shuffle(); 
-    std::cout << "Deck Shuffled <----------------------------------------" << std::endl;
-    std::cout << m_deck << std::endl;
+    std::cout << "Deck Shuffled" << std::endl;
+    std::cout << std::endl;
 
     // Checks for the number of players
     bool numPlayersError = true;
@@ -87,10 +87,23 @@ void Game::Play()
     {
         std::string playerAction = " ";
         bool stopAction = false;
+
+        HandValue pontoonCheck = m_hands[player - 1].Value();
+        if (pontoonCheck.maxValue == 21)
+        {
+            std::cout << "Player " << player << ":" << std::endl;
+            std::cout << m_hands[player - 1] << std::endl;
+            std::cout << "Player " << player << " has got a pontoon!" << std::endl;
+            std::cout << std::endl;
+
+            stopAction = true;
+        }
+
         while (playerAction != "stick" && !stopAction)
         {
             std::cout << "Player " << player << ":" << std::endl;
             std::cout << m_hands[player - 1] << std::endl;
+
             std::cout << "Do you want to: 'twist' or 'stick'?" << std::endl;
             std::cin >> playerAction;
 
@@ -107,14 +120,12 @@ void Game::Play()
                     std::cout << std::endl;
                     stopAction = true;
                 }
-                else if (handValue.maxValue == 21)
+                else if (handValue.maxValue == 21 || handValue.minValue == 21)
                 {
                     std::cout << "Player " << player << " has hit 21! Wait to the end for results." << std::endl;
                     std::cout << std::endl;
                     stopAction = true;
-                }
-
-                
+                }  
             }
             else if (playerAction == "stick")
             {
@@ -152,29 +163,30 @@ void Game::Play()
             HandValue playerHandValue = m_hands[player - 1].Value();
             if (playerHandValue.minValue > 21)
             {
-                std::cout << "Player" << player << " went Bust!" << std::endl;
+                std::cout << "Player " << player << " went Bust!" << std::endl;
             }
-            else
+            else if (playerHandValue.maxValue > dealerHandValue.maxValue || playerHandValue.minValue > dealerHandValue.maxValue)
             {
-                if (playerHandValue.minValue > dealerHandValue.maxValue)
+                if (playerHandValue.maxValue == 21 && m_hands[player - 1].GetCardCount() == 2)
                 {
-                    if (playerHandValue.maxValue == 21 &&)
-                    {
-                        std::cout << "Player" << player << " got a Pontoon!" << std::endl;
-                    }
-                    else if ()
-                    {
-                        std::cout << "Player" << player << " got a Five Card Trick!" << std::endl;
-                    }
+                    std::cout << "Player " << player << " got a Pontoon!" << std::endl;
                 }
-                else if (playerHandValue.maxValue == dealerHandValue.maxValue)
+                else if (m_hands[player - 1].GetCardCount() == 5 && playerHandValue.minValue <= 21 && playerHandValue.maxValue <= 21)
                 {
-                    std::cout << "Player" << player << " lost to the dealer!" << std::endl;
+                    std::cout << "Player " << player << " got a Five Card Trick!" << std::endl;
                 }
                 else
                 {
-                    std::cout << "Player" << player << " lost to the dealer!" << std::endl;
+                    std::cout << "Player " << player << " beat the dealer!" << std::endl;
                 }
+            }
+            else if (playerHandValue.maxValue == dealerHandValue.maxValue || playerHandValue.minValue == dealerHandValue.maxValue)
+            {
+                std::cout << "Player " << player << " lost to the dealer!" << std::endl;
+            }
+            else
+            {
+                std::cout << "Player " << player << " lost to the dealer!" << std::endl;
             }
         }
     }
