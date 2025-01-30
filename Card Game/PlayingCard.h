@@ -12,8 +12,8 @@ public:
 	int GetFaceValue(void) const { return m_faceValue; }
 	int GetSuit(void) const { return m_suit; }
 
-	std::string GetSuitName() const;
-	std::string GetFaceName() const;
+	std::string GetSuitName() const; // Converts the cards integer value to a string
+	std::string GetFaceName() const; // Converts the cards integer value to a string
 };
 
 // Outputs each card within the deck to the console

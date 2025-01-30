@@ -23,7 +23,7 @@ void Game::Play()
         std::cout << "How many people are playing? 1 - 7" << std::endl;
         std::cin >> numHands;
 
-        if (std::cin.fail())
+        if (std::cin.fail()) // Checks for a valid number
         {
             std::cin.clear(); 
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
@@ -42,7 +42,7 @@ void Game::Play()
         }
     }
     
-    // Creates the specified number of players
+    // Creates the specified number of players and deals one card
     PlayingCard dealtCard = m_deck.Deal();
     for (int player = 1; player < numHands + 1; player++)
     {
@@ -56,6 +56,7 @@ void Game::Play()
         std::cout << newHand << std::endl;
     }
 
+    // Deals one card to the dealer
     Hand dealersHand;
     m_hands.push_back(dealersHand);
 
@@ -66,6 +67,7 @@ void Game::Play()
     std::cout << "Dealer's First Card:" << std::endl;
     std::cout << dealersHand << std::endl;
 
+    // Deals the second card to the players
     for (int player = 1; player < numHands + 1; player++)
     {
         dealtCard = m_deck.Deal();
@@ -76,6 +78,7 @@ void Game::Play()
         std::cout << m_hands[player - 1] << std::endl;
     }
 
+    // Deals the second card to the dealer
     PlayingCard dealersSecondCard = m_deck.Deal();
     std::cout << "Dealing the Dealer's Second Card." << std::endl;
 
@@ -83,6 +86,7 @@ void Game::Play()
     std::cout << "Dealer's First Card:" << std::endl;
     std::cout << dealersHand << std::endl;
 
+    // Player action, and pontoon check
     for (int player = 1; player < numHands + 1; player++)
     {
         std::string playerAction = " ";
@@ -137,6 +141,8 @@ void Game::Play()
             }
         }
     }
+
+    // Dealer action
     std::cout << "Dealer:" << std::endl;
     dealersHand.Add(dealersSecondCard);
     std::cout << dealersHand << std::endl;
@@ -152,6 +158,7 @@ void Game::Play()
         std::cout << dealersHand << std::endl;
     }
 
+    // Win / lose conditions
     if (dealerHandValue.minValue > 21)
     {
         std::cout << "Dealer Bust! Everybody Still in Wins!" << std::endl;

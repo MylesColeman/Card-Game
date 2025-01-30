@@ -6,6 +6,7 @@ PlayingCard::PlayingCard(int suit, int face) // Defines a card
 	m_faceValue = face;
 }
 
+// Converts the cards integer value to a string
 std::string PlayingCard::GetSuitName() const
 {
     switch (m_suit)
@@ -17,6 +18,7 @@ std::string PlayingCard::GetSuitName() const
     }
 }
 
+// Converts the cards integer value to a string
 std::string PlayingCard::GetFaceName() const
 {
     switch (m_faceValue)
