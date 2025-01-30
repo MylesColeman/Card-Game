@@ -67,7 +67,17 @@ void Game::Play()
         std::cout << std::endl;
         std::cout << "Player " << player << "s " << "Dealt Cards:" << std::endl;
         std::cout << m_hands[player - 1] << std::endl;
+    }
 
+    PlayingCard dealersSecondCard = m_deck.Deal();
+    std::cout << "Dealing the Dealer's Second Card." << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "Dealer's First Card:" << std::endl;
+    std::cout << dealersHand << std::endl;
+
+    for (int player = 1; player < numHands + 1; player++)
+    {
         std::string playerAction = " ";
         while (playerAction != "Stick")
         {
@@ -91,11 +101,4 @@ void Game::Play()
             }
         }
     }
-
-    dealtCard = m_deck.Deal();
-    dealersHand.Add(dealtCard);
-
-    std::cout << std::endl;
-    std::cout << "Dealer's First Card:" << std::endl;
-    std::cout << dealersHand << std::endl;
 }
