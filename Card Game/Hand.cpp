@@ -12,9 +12,21 @@ int Hand::Value()
 {
 	int totalValue = 0;
 
+
 	for (auto& card : m_cards)
 	{
-		totalValue += card.GetFaceValue();
+		if (card.GetFaceValue() > 10 && card.GetFaceValue() != 14)
+		{
+			totalValue += 10;
+		}
+		else if (card.GetFaceValue() == 14)
+		{
+			totalValue += 11; // CHANGE THIS
+		}
+		else
+		{
+			totalValue += card.GetFaceValue();
+		}
 	}
 
 	return totalValue;

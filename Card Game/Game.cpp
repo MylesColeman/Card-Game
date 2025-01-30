@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <vector>
+#include <string>
 
 void Game::Play()
 {
@@ -19,13 +20,13 @@ void Game::Play()
     int numHands = 1;
     while (numPlayersError)
     {
-        std::cout << "How many people are playing? 2 - 8" << std::endl;
+        std::cout << "How many people are playing? 1 - 7" << std::endl;
         std::cin >> numHands;
 
-        if (numHands < 2 || numHands > 8)
+        if (numHands < 1 || numHands > 7)
         {
             numPlayersError = true;
-            std::cout << "ERROR - Player count must be between 2 and 8!" << std::endl;
+            std::cout << "ERROR - Player count must be between 1 and 7!" << std::endl;
         }
         else
         {
@@ -34,49 +35,67 @@ void Game::Play()
     }
     
     // Creates the specified number of players
-    int highestPlayerValue = 0;
-    int winningPlayer = 1;
-    bool drawCheck = false;
-    std::vector<int> drawnPlayers;
+    PlayingCard dealtCard = m_deck.Deal();
     for (int player = 1; player < numHands + 1; player++)
     {
         Hand newHand; 
         m_hands.push_back(newHand);
-        for (int numCards = 0; numCards < 2; numCards++)
-        {
-            PlayingCard dealtCard = m_deck.Deal();
-            newHand.Add(dealtCard);
-        }
+
+        dealtCard = m_deck.Deal();
+        newHand.Add(dealtCard);
+
         std::cout << std::endl;
         std::cout << "Player " << player << "s " << "Dealt Cards:" << std::endl;
         std::cout << newHand << std::endl;
-        std::cout << "Total Hand Value: " << newHand.Value() << std::endl;
+    }
 
-        // Checks for a winner (or draw)
-        if (highestPlayerValue < newHand.Value())
-        {
-            highestPlayerValue = newHand.Value();
-            winningPlayer = player;
-            drawCheck = false;
-            drawnPlayers.clear();
-            drawnPlayers.push_back(player);
-        }
-        else if (highestPlayerValue == newHand.Value())
-        {
-            drawCheck = true;
-            drawnPlayers.push_back(player);
-        }
-    }
-    if (!drawCheck)
+    Hand dealersHand;
+    m_hands.push_back(dealersHand);
+
+    dealtCard = m_deck.Deal();
+    dealersHand.Add(dealtCard);
+
+    std::cout << std::endl;
+    std::cout << "Dealer's First Card:" << std::endl;
+    std::cout << dealersHand << std::endl;
+
+    for (int player = 1; player < numHands + 1; player++)
     {
-        std::cout << "Player " << winningPlayer << " Wins!" << std::endl;
-    }
-    else
-    {
-        std::cout << "There was a draw! Heres Who Drawn:" << std::endl;
-        for (auto& player : drawnPlayers)
+        dealtCard = m_deck.Deal();
+        m_hands[player - 1].Add(dealtCard);
+
+        std::cout << std::endl;
+        std::cout << "Player " << player << "s " << "Dealt Cards:" << std::endl;
+        std::cout << m_hands[player - 1] << std::endl;
+
+        std::string playerAction = " ";
+        while (playerAction != "Stick")
         {
-            std::cout << player << std::endl;
+            std::cout << "Do you want to: Twist or Stick?" << std::endl;
+            std::cin >> playerAction;
+
+            if (playerAction == "Twist")
+            {
+                PlayingCard dealtCard = m_deck.Deal();
+                m_hands[player - 1].Add(dealtCard);
+
+                std::cout << m_hands[player - 1] << std::endl;
+            }
+            else if (playerAction == "Stick")
+            {
+                std::cout << m_hands[player - 1] << std::endl;
+            }
+            else
+            {
+                std::cout << "ERROR - Action not recognised!" << std::endl;
+            }
         }
     }
+
+    dealtCard = m_deck.Deal();
+    dealersHand.Add(dealtCard);
+
+    std::cout << std::endl;
+    std::cout << "Dealer's First Card:" << std::endl;
+    std::cout << dealersHand << std::endl;
 }
